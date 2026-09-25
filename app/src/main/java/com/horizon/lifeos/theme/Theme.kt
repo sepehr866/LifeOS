@@ -1,32 +1,31 @@
 package com.horizon.lifeos.theme
 
-import androidx.compose.material3.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
-Id,
-                "LifeOS Focus Service",
-                NotificationManager.IMPORTANCE_LOW
-            )
-            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            manager.createNotificationChannel(channel)
-        }
+import androidx.compose.ui.graphics.Color
 
-        val notificationIntent = Intent(this, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(
-            this, 0, notificationIntent,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-        )
+val DarkBackground = Color(0xFF0F172A)
+val SurfaceColor = Color(0xFF1E293B)
+val PrimaryBlue = Color(0xFF38BDF8)
+val AccentPeach = Color(0xFFFB7185)
+val TextPrimary = Color(0xFFF8FAFC)
+val TextSecondary = Color(0xFF94A3B8)
 
-        val notification = NotificationCompat.Builder(this, channelId)
-            .setContentTitle("حالت تمرکز فعال است")
-            .setContentText("LifeOS در حال مدیریت زمان تمرکز شماست.")
-            .setSmallIcon(android.R.drawable.ic_lock_idle_alarm)
-            .setContentIntent(pendingIntent)
-            .setOngoing(true)
-            .build()
+private val DarkColorScheme = darkColorScheme(
+    primary = PrimaryBlue,
+    secondary = AccentPeach,
+    background = DarkBackground,
+    surface = SurfaceColor,
+    onPrimary = Color.Black,
+    onBackground = TextPrimary,
+    onSurface = TextPrimary
+)
 
-        startForeground(1001, notification)
-        return START_STICKY
-    }
-
-    override fun onBind(intent: Intent?): IBinder? = null
+@Composable
+fun LifeOSTheme(content: @Composable () -> Unit) {
+    MaterialTheme(
+        colorScheme = DarkColorScheme,
+        content = content
+    )
 }
